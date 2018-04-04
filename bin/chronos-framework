@@ -96,7 +96,8 @@ function run_jar {
 
   export PATH=/usr/local/bin:"$PATH"
   local vm_opts=( -Djava.library.path=/usr/local/lib:/usr/lib64:/usr/lib
-                  -Djava.util.logging.SimpleFormatter.format="$log_format" )
+                  -Djava.util.logging.SimpleFormatter.format="$log_format"
+		  -Dlog4j.configuration=file:///etc/log4j.properties )
   for j_opt in ${JAVA_OPTS:-"-Xmx512m"}; do
     vm_opts+=( ${j_opt} )
   done

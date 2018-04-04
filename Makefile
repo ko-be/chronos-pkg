@@ -135,6 +135,7 @@ ubuntu-saucy: toor/ubuntu-saucy/etc/chronos/conf/http_port
 .PHONY: ubuntu-trusty
 ubuntu-trusty: toor/ubuntu-trusty/etc/init/chronos.conf
 ubuntu-trusty: toor/ubuntu-trusty/etc/init.d/chronos
+ubuntu-trusty: toor/ubuntu-trusty/etc/log4j.properties
 ubuntu-trusty: toor/ubuntu-trusty/$(PREFIX)/bin/chronos
 ubuntu-trusty: chronos.postinst
 ubuntu-trusty: chronos.postrm
@@ -162,6 +163,7 @@ ubuntu-vivid: chronos.systemd.postinst
 .PHONY: ubuntu-xenial
 ubuntu-xenial: toor/ubuntu-xenial/lib/systemd/system/chronos.service
 ubuntu-xenial: toor/ubuntu-xenial/$(PREFIX)/bin/chronos
+ubuntu-xenial: toor/ubuntu-xenial/etc/log4j.properties
 ubuntu-xenial: toor/ubuntu-xenial/etc/chronos/conf/http_port
 ubuntu-xenial: chronos.systemd.postinst
 	fpm -C toor/ubuntu-xenial --iteration $(PKG_REL).ubuntu1604 \
@@ -197,6 +199,10 @@ toor/%/etc/init/chronos.conf: chronos.conf
 toor/%/etc/init.d/chronos: chronos.init
 	mkdir -p "$(dir $@)"
 	cp chronos.init "$@"
+
+toor/%/etc/log4j.properties: log4j.properties
+	mkdir -p "$(dir $@)"
+	cp log4j.properties "$@"
 
 toor/%/usr/lib/systemd/system/chronos.service: chronos.service
 	mkdir -p "$(dir $@)"
